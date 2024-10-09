@@ -30,17 +30,17 @@ async function fetchTraktData(endpoint) {
     }
 }
 
-// Fonction pour afficher les films récupérés
-function displayMovies(movies, tmdbApiKey) {
-    const movieGrid = document.getElementById('movieGrid');
+// Fonction pour afficher les films récupérés dans une grille donnée
+function displayMovies(movies, tmdbApiKey, gridId) {
+    const movieGrid = document.getElementById(gridId);
     if (!movieGrid) {
-        console.error('movieGrid element not found');
+        console.error(`${gridId} element not found`);
         return;
     }
     movieGrid.innerHTML = ''; // Nettoie le contenu actuel
 
     movies.forEach(item => {
-        const movie = item.movie;
+        const movie = item.movie || item;  // "movie" pour vedlem list, ou item pour trending
         if (!movie || !movie.ids || !movie.ids.tmdb) return;
 
         fetchMovieImage(movie.ids.tmdb, tmdbApiKey)
@@ -79,32 +79,34 @@ function fetchMovieImage(tmdbId, tmdbApiKey) {
         });
 }
 
-// Fonction pour récupérer la liste des films
-function getMoviesList(tmdbApiKey) {
+// Fonction pour récupérer la liste des films Vedlem Movies
+function getVedlemMoviesList(tmdbApiKey) {
     fetchTraktData('/users/vedlem2/lists/vus/items/movies')
         .then(data => {
-            console.log('Films récupérés:', data);
-            displayMovies(data, tmdbApiKey); // Appelle la fonction pour afficher les films
+            console.log('Vedlem Movies récupérés:', data);
+            displayMovies(data, tmdbApiKey, 'vedlemMoviesGrid'); // Affiche dans la grille Vedlem Movies
         })
         .catch(error => {
-            console.error('Erreur lors de la récupération des films:', error);
+            console.error('Erreur lors de la récupération des films Vedlem:', error);
         });
 }
 
-// Test de la connexion à l'API Trakt
-function testApiConnection() {
+// Fonction pour récupérer les 10 films trending
+function getTrendingMoviesList(tmdbApiKey) {
     fetchTraktData('/movies/trending')
         .then(data => {
-            console.log('Test de connexion réussi:', data);
+            console.log('Films Trending récupérés:', data);
+            const trendingMovies = data.slice(0, 10); // Limiter à 10 films
+            displayMovies(trendingMovies, tmdbApiKey, 'trendingMoviesGrid'); // Affiche dans la grille Trending Movies
         })
         .catch(error => {
-            console.error('Erreur de connexion:', error);
+            console.error('Erreur lors de la récupération des films trending:', error);
         });
 }
 
-// Exécuter le test de connexion lors du chargement de la page
+// Exécuter les deux listes lors du chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
-    const tmdbApiKey = '65324c4619d7c9fbe7ebe9467e16d8eb'; // Remplace par ta clé TMDB réelle
-    testApiConnection(); // Test de la connexion à Trakt
-    getMoviesList(tmdbApiKey); // Récupère la liste des films
+    const tmdbApiKey = 'TA_TMBD_API_KEY'; // Remplace par ta clé TMDB réelle
+    getVedlemMoviesList(tmdbApiKey);  // Récupère et affiche les Vedlem Movies
+    getTrendingMoviesList(tmdbApiKey);  // Récupère et affiche les Trending Movies
 });
