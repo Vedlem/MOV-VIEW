@@ -4,76 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trakt Movie Grid</title>
-    <style>
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .movie {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-        }
-        .movie img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Trakt Movie Gid</h1>
+    <h1>Trakt Movie Grid</h1>
     <div id="movieGrid" class="grid"></div>
 
-    <script>
-        const clientId = 'YOUR_TRAKT_CLIENT_ID'; // Remplacez par votre client ID de Trakt
-        const listUrl = 'https://api.trakt.tv/users/YOUR_USERNAME/lists/YOUR_LIST_ID/items/movies';
-
-        async function fetchMovies() {
-            try {
-                const response = await fetch(listUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'trakt-api-version': '2',
-                        'trakt-api-key': clientId
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la récupération des données');
-                }
-
-                const data = await response.json();
-                displayMovies(data);
-            } catch (error) {
-                console.error('Erreur :', error);
-            }
-        }
-
-        function displayMovies(movies) {
-            const movieGrid = document.getElementById('movieGrid');
-            movieGrid.innerHTML = '';
-
-            movies.forEach(item => {
-                const movie = item.movie;
-                const movieDiv = document.createElement('div');
-                movieDiv.classList.add('movie');
-
-                movieDiv.innerHTML = `
-                    <img src="https://image.tmdb.org/t/p/w200${movie.ids.tmdb}.jpg" alt="${movie.title}">
-                    <h3>${movie.title}</h3>
-                    <p>Année : ${movie.year}</p>
-                `;
-
-                movieGrid.appendChild(movieDiv);
-            });
-        }
-
-        fetchMovies();
-    </script>
+    <script src="config.json"></script>
+    <script src="script.js"></script>
 </body>
 </html>
