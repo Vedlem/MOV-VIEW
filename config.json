@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trakt Movie Grid</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Trakt Movie Grid</h1>
-    <div id="movieGrid" class="grid"></div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+{
+    "clientId": "d613533740e45a75ee0b1b84086a2634243093870bff80bd75418fab5c411929",
+    "listUrl": "https://trakt.tv/users/vedlem2/lists/vus"
+  }
