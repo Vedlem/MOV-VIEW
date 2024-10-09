@@ -1,16 +1,4 @@
-{
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self' https://api.trakt.tv https://vercel.live; script-src 'self' https://vercel.live;"
-        }
-      ]
-    }
-  ]
-}
+// WORKS
 
 // {
 //   "headers": [
@@ -25,3 +13,19 @@
 //     }
 //   ]
 // }
+
+// DONT WORKS
+
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' https://api.trakt.tv https://vercel.live; script-src 'self' https://vercel.live; style-src 'self' 'unsafe-inline' https://vercel.live;"
+        }
+      ]
+    }
+  ]
+}
