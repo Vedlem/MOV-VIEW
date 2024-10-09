@@ -1,7 +1,16 @@
+:root {
+    --background-color: #f0f0f0;
+    --text-color: #333;
+    --movie-background: #fff;
+    --movie-border: #ccc;
+    --box-shadow-color: rgba(0, 0, 0, 0.1);
+    --secondary-text-color: #777;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: var(--background-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
     text-align: center;
@@ -19,11 +28,11 @@ h1 {
 }
 
 .movie {
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: var(--movie-background);
+    border: 1px solid var(--movie-border);
     border-radius: 8px;
     padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--box-shadow-color);
 }
 
 .movie img {
@@ -40,5 +49,5 @@ h1 {
 .movie p {
     margin: 5px 0;
     font-size: 0.9em;
-    color: #777;
+    color: var(--secondary-text-color);
 }
