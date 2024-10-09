@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trakt Movie Grid</title>
     <link rel="stylesheet" href="styles.css">
+    <title>Movie Grid</title>
 </head>
 <body>
-    <h1>Trakt Movie Grid</h1>
+    <h1>Movie Collection</h1>
+    <div class="button-container">
+        <label class="toggle-button">
+            <input type="checkbox" id="modeSwitch">
+            <span class="slider"></span>
+        </label>
+        <button id="timelineButton" class="timeline-button">Toggle Timeline Mode</button>
+    </div>
     <div id="movieGrid" class="grid"></div>
-
     <script src="script.js"></script>
 </body>
 </html>

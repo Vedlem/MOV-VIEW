@@ -6,9 +6,10 @@ fetch('config.json')
         return response.json();
     })
     .then(config => {
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         const traktUrl = 'https://api.trakt.tv/users/vedlem2/lists/vus/items/movies';
 
-        return fetch(traktUrl, {
+        return fetch(proxyUrl + traktUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
