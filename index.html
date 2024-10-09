@@ -1,22 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://api.trakt.tv; img-src 'self' https: data:; style-src 'self' 'unsafe-inline';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Collection de films avec intégration Trakt">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://api.trakt.tv; img-src 'self' https: data:; style-src 'self' 'unsafe-inline';">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
-    <title>Movie Grid</title>
+    
+    <!-- Open Graph tags pour le partage social -->
+    <meta property="og:title" content="Ma Collection de Films">
+    <meta property="og:description" content="Découvrez ma collection de films via Trakt">
+    <meta property="og:type" content="website">
+    
+    <title>Ma Collection de Films</title>
 </head>
 <body>
-    <h1>aabMovie Collection</h1>
-    <div class="button-container">
-        <label class="toggle-button">
-            <input type="checkbox" id="modeSwitch">
-            <span class="slider"></span>
-        </label>
-        <button id="timelineButton" class="timeline-button">Toggle Timeline Mode</button>
-    </div>
-    <div id="movieGrid" class="grid"></div>
-    <script src="script.js"></script>
+    <header>
+        <h1>dMa Collection de Films</h1>
+        <div class="controls">
+            <!-- Mode switch -->
+            <div class="mode-switch">
+                <label class="toggle-button" for="modeSwitch">
+                    <input type="checkbox" id="modeSwitch" aria-label="Changer le mode d'affichage">
+                    <span class="slider" role="switch" aria-checked="false">
+                        <span class="mode-icon mode-icon-light">☀️</span>
+                        <span class="mode-icon mode-icon-dark">🌙</span>
+                    </span>
+                </label>
+            </div>
+            
+            <!-- Timeline toggle -->
+            <button 
+                id="timelineButton" 
+                class="timeline-button"
+                aria-pressed="false"
+                aria-label="Basculer en mode timeline">
+                Mode Timeline
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Loading indicator -->
+        <div id="loadingIndicator" class="loading-indicator hidden">
+            <div class="spinner"></div>
+            <p>Chargement de la collection...</p>
+        </div>
+
+        <!-- Error message -->
+        <div id="errorMessage" class="error-message hidden">
+            <p>Une erreur est survenue lors du chargement des films.</p>
+            <button id="retryButton">Réessayer</button>
+        </div>
+
+        <!-- Movie grid container -->
+        <div id="movieGrid" class="grid" role="grid" aria-label="Collection de films">
+            <!-- Les films seront injectés ici via JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <p>Propulsé par <a href="https://trakt.tv" target="_blank" rel="noopener noreferrer">Trakt</a></p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
 </body>
 </html>
