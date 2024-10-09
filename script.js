@@ -33,11 +33,7 @@ async function getWatchedMovies(clientId) {
 
 function displayMovies(movies) {
     const movieGrid = document.getElementById('movieGrid');
-
-    // Vider le contenu précédent en supprimant tous les enfants
-    while (movieGrid.firstChild) {
-        movieGrid.removeChild(movieGrid.firstChild);
-    }
+    movieGrid.innerHTML = ''; // Vider le contenu précédent s'il existe
 
     movies.forEach(item => {
         const movie = item.movie;
@@ -48,12 +44,12 @@ function displayMovies(movies) {
 
         // Créer un élément h2 pour le titre
         const title = document.createElement('h2');
-        title.textContent = movie.title;
+        title.textContent = movie.title; // Utiliser textContent pour le titre
         movieItem.appendChild(title);
 
         // Créer un élément p pour l'année
         const year = document.createElement('p');
-        year.textContent = movie.year;
+        year.textContent = movie.year; // Utiliser textContent pour l'année
         movieItem.appendChild(year);
 
         // Ajouter l'élément movieItem au grid
