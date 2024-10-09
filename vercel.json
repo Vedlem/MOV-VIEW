@@ -17,3 +17,16 @@
 // TEST LIVE
 
 
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "default-src 'self' https://api.trakt.tv https://vercel.live; script-src 'self' https://vercel.live; style-src 'self' https://vercel.live;"
+        }
+      ]
+    }
+  ]
+}
