@@ -1,22 +1,3 @@
-// WORKS
-
-// {
-//   "headers": [
-//     {
-//       "source": "/(.*)",
-//       "headers": [
-//         {
-//           "key": "Content-Security-Policy",
-//           "value": "default-src 'self' https://api.trakt.tv https://vercel.live; script-src 'self' https://vercel.live;"
-//         }
-//       ]
-//     }
-//   ]
-// }
-
-// TEST LIVE
-
-
 {
   "headers": [
     {
