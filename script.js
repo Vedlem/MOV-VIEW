@@ -31,30 +31,28 @@ async function getWatchedMovies(clientId) {
     }
 }
 
-// Fonction pour afficher les films dans le grid
 function displayMovies(movies) {
     const movieGrid = document.getElementById('movieGrid');
     movieGrid.innerHTML = ''; // Vider le contenu précédent s'il existe
 
     movies.forEach(item => {
         const movie = item.movie;
+
+        // Créer un élément div pour chaque film
         const movieItem = document.createElement('div');
         movieItem.className = 'movie-item';
-        movieItem.innerHTML = `
-            <h2>${movie.title}</h2>
-            <p>${movie.year}</p>
-        `;
+
+        // Créer un élément h2 pour le titre
+        const title = document.createElement('h2');
+        title.textContent = movie.title; // Utiliser textContent pour le titre
+        movieItem.appendChild(title);
+
+        // Créer un élément p pour l'année
+        const year = document.createElement('p');
+        year.textContent = movie.year; // Utiliser textContent pour l'année
+        movieItem.appendChild(year);
+
+        // Ajouter l'élément movieItem au grid
         movieGrid.appendChild(movieItem);
     });
 }
-
-// Charger le config.json et récupérer les films
-loadConfig().then(config => {
-    getWatchedMovies(config.clientId).then(data => {
-        if (data && data.length > 0) {
-            displayMovies(data);
-        } else {
-            console.log('Aucun film trouvé.');
-        }
-    });
-});
