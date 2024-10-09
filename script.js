@@ -13,7 +13,8 @@ fetch('config.json')
             headers: {
                 'Content-Type': 'application/json',
                 'trakt-api-version': '2',
-                'trakt-api-key': config.clientId
+                'trakt-api-key': config.clientId,
+                'Authorization': `Bearer ${config.accessToken}` // S'assurer que le token est bien présent
             }
         })
         .then(response => {
@@ -25,9 +26,15 @@ fetch('config.json')
         .then(data => {
             console.log(data);
             displayMovies(data, config.tmdbApiKey);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête Trakt:', error);
         });
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+        console.error('Erreur lors de la configuration:', error);
+    });
+
 
 function displayMovies(data, tmdbApiKey) {
     const movies = data;

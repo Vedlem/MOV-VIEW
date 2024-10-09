@@ -1,5 +1,5 @@
 {
     "clientId": "d613533740e45a75ee0b1b84086a2634243093870bff80bd75418fab5c411929",
-    "tmdbApiKey": "65324c4619d7c9fbe7ebe9467e16d8eb",
-    "listUrl": "https://api.trakt.tv/users/vedlem2/lists/vus/items/movies"
-  }
+    "accessToken": "bdab8a3a6846d7bcca00142cc69816298abe1f81f1b0248e2bed7717f66d7912",
+    "tmdbApiKey": "65324c4619d7c9fbe7ebe9467e16d8eb"
+}
