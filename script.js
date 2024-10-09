@@ -1,4 +1,4 @@
-fetch('config.json')
+fetch('https://cors-anywhere.herokuapp.com/config.json')
     .then(response => response.json())
     .then(config => {
         fetchMovies(config);
@@ -7,7 +7,10 @@ fetch('config.json')
 
 async function fetchMovies(config) {
     try {
-        const response = await fetch(config.listUrl, {
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const traktUrl = config.listUrl;
+
+        const response = await fetch(proxyUrl + traktUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
