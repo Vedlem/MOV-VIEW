@@ -1,4 +1,4 @@
-fetch('https://cors-anywhere.herokuapp.com/config.json')
+fetch('config.json')
     .then(response => response.json())
     .then(config => {
         fetchMovies(config);
