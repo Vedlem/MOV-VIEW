@@ -1,28 +1,37 @@
-fetch('config.json')
+fetch('config.json', { cache: 'no-store' })
     .then(response => {
         if (!response.ok) throw new Error('Erreur de configuration');
         return response.json();
     })
     .then(config => {
-        return fetch('movies.txt')
+        const options = {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'Authorization': `Bearer ${config.tmdbApiKey}`
+            }
+        };
+
+        // Ajout d'un timestamp pour éviter le cache
+        return fetch(`movies.txt?t=${Date.now()}`, { cache: 'no-store' })
             .then(response => response.text())
             .then(text => {
                 const movieTitles = text.split('\n').filter(line => line.trim());
                 return Promise.all(movieTitles.map(title => 
-                    searchMovie(title, config.tmdbApiKey)
+                    searchMovie(title, options)
                 ));
             })
             .then(movies => displayMovies(movies.filter(m => m)));
     })
     .catch(error => console.error(error));
 
-function searchMovie(title, apiKey) {
-    const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}`;
-    return fetch(searchUrl)
+function searchMovie(title, options) {
+    const searchUrl = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(title)}`;
+    return fetch(searchUrl, options)
         .then(response => response.json())
         .then(data => {
             if (data.results && data.results.length > 0) {
-                return fetchMovieDetails(data.results[0].id, apiKey);
+                return fetchMovieDetails(data.results[0].id, options);
             }
             return null;
         })
@@ -32,8 +41,8 @@ function searchMovie(title, apiKey) {
         });
 }
 
-function fetchMovieDetails(movieId, apiKey) {
-    return fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
+function fetchMovieDetails(movieId, options) {
+    return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, options)
         .then(response => response.json())
         .then(movie => ({
             title: movie.title,
@@ -42,6 +51,11 @@ function fetchMovieDetails(movieId, apiKey) {
                 `https://image.tmdb.org/t/p/w200${movie.poster_path}` : 
                 null
         }));
+}
+
+// Fonction pour recharger les données
+function reloadMovies() {
+    location.reload();
 }
 
 function displayMovies(movies) {
@@ -68,6 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleSwitch = document.getElementById('modeSwitch');
     const timelineButton = document.getElementById('timelineButton');
     const movieGrid = document.querySelector('.grid');
+    const reloadButton = document.createElement('button');
+    
+    // Ajout d'un bouton de rechargement
+    reloadButton.textContent = 'Recharger';
+    reloadButton.onclick = reloadMovies;
+    document.querySelector('.controls').appendChild(reloadButton);
 
     if (toggleSwitch) {
         toggleSwitch.addEventListener('change', () => {
