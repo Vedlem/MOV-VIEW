@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self' https://api.trakt.tv;
-    script-src 'self' https://api.trakt.tv;
-    style-src 'self' https://api.trakt.tv;
-    img-src 'self' https://api.trakt.tv;
-    connect-src 'self' https://api.trakt.tv;
-  ">
-    <title>aaTrakt Movie Grid</title>
+    <title>Trakt Movie Grid</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h1>aTzrakt Movie Grid</h1>
+<body class="night-mode">
+    <div id="modeSwitchWrapper">
+        <input type="checkbox" id="modeSwitch" aria-label="Mode Switch" checked>
+        <label for="modeSwitch" style="margin-left: 10px;">Day/Night Mode</label>
+    </div>
+
+    <!-- Button for timeline -->
+    <button id="timelineButton">Show Timeline</button>
+
+    <br><br><br><br>
     <div id="movieGrid" class="grid"></div>
 
     <script src="config.json"></script>
