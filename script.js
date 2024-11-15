@@ -4,25 +4,34 @@ fetch('config.json')
         return response.json();
     })
     .then(config => {
+        // Configuration des requêtes TMDB
+        const options = {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'Authorization': `Bearer ${config.tmdbApiKey}`
+            }
+        };
+
         return fetch('movies.txt')
             .then(response => response.text())
             .then(text => {
                 const movieTitles = text.split('\n').filter(line => line.trim());
                 return Promise.all(movieTitles.map(title => 
-                    searchMovie(title, config.tmdbApiKey)
+                    searchMovie(title, options)
                 ));
             })
             .then(movies => displayMovies(movies.filter(m => m)));
     })
     .catch(error => console.error(error));
 
-function searchMovie(title, apiKey) {
-    const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}`;
-    return fetch(searchUrl)
+function searchMovie(title, options) {
+    const searchUrl = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(title)}`;
+    return fetch(searchUrl, options)
         .then(response => response.json())
         .then(data => {
             if (data.results && data.results.length > 0) {
-                return fetchMovieDetails(data.results[0].id, apiKey);
+                return fetchMovieDetails(data.results[0].id, options);
             }
             return null;
         })
@@ -32,8 +41,8 @@ function searchMovie(title, apiKey) {
         });
 }
 
-function fetchMovieDetails(movieId, apiKey) {
-    return fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
+function fetchMovieDetails(movieId, options) {
+    return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, options)
         .then(response => response.json())
         .then(movie => ({
             title: movie.title,
