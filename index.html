@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trakt Movie Grid</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Films</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="night-mode">
-    <div id="modeSwitchWrapper">
-        <input type="checkbox" id="modeSwitch" aria-label="Mode Switch" checked>
-        <label for="modeSwitch" style="margin-left: 10px;">Day/Night Mode</label>
-    </div>
-
-    <!-- Button for timeline -->
-    <button id="timelineButton">Show Timeline</button>
-
-    <br><br><br><br>
-    <div id="movieGrid" class="grid"></div>
-
-    <script src="config.json"></script>
+<body>
+    <header>
+        <h1>Ma Collection de Films</h1>
+        <div class="controls">
+            <label class="switch">
+                <input type="checkbox" id="modeSwitch">
+                <span class="slider round"></span>
+            </label>
+            <button id="timelineButton">Changer Vue</button>
+        </div>
+    </header>
+    <main>
+        <div id="movieGrid" class="grid"></div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
