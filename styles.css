@@ -13,12 +13,6 @@ body {
     color: #e0e0e0;
 }
 
-.night-mode .movie {
-    background-color: #333;
-    border: 1px solid #555;
-    color: #e0e0e0;
-}
-
 h1 {
     margin: 20px;
 }
@@ -40,6 +34,11 @@ h1 {
     transition: background-color 0.5s, box-shadow 0.5s;
 }
 
+.night-mode .movie {
+    background-color: #2a2a2a;
+    border: 1px solid #3a3a3a;
+}
+
 .movie img {
     width: 100%;
     height: auto;
@@ -54,7 +53,7 @@ h1 {
 .movie p {
     margin: 5px 0;
     font-size: 0.9em;
-    color: #777;
+    color: #aaaaaa;
 }
 
 /* Button Styles */
@@ -97,10 +96,6 @@ h1 {
     background-color: white;
     transition: 0.4s;
     border-radius: 50%;
-}
-
-input:not(:checked) + .slider {
-    background-color: #ccc;
 }
 
 input:checked + .slider {
