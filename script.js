@@ -1,10 +1,9 @@
-fetch('config.json')
+fetch('config.json', { cache: 'no-store' })
     .then(response => {
         if (!response.ok) throw new Error('Erreur de configuration');
         return response.json();
     })
     .then(config => {
-        // Configuration des requêtes TMDB
         const options = {
             method: 'GET',
             headers: {
@@ -13,7 +12,8 @@ fetch('config.json')
             }
         };
 
-        return fetch('movies.txt')
+        // Ajout d'un timestamp pour éviter le cache
+        return fetch(`movies.txt?t=${Date.now()}`, { cache: 'no-store' })
             .then(response => response.text())
             .then(text => {
                 const movieTitles = text.split('\n').filter(line => line.trim());
@@ -53,6 +53,11 @@ function fetchMovieDetails(movieId, options) {
         }));
 }
 
+// Fonction pour recharger les données
+function reloadMovies() {
+    location.reload();
+}
+
 function displayMovies(movies) {
     const movieGrid = document.getElementById('movieGrid');
     if (!movieGrid) {
@@ -77,6 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleSwitch = document.getElementById('modeSwitch');
     const timelineButton = document.getElementById('timelineButton');
     const movieGrid = document.querySelector('.grid');
+    const reloadButton = document.createElement('button');
+    
+    // Ajout d'un bouton de rechargement
+    reloadButton.textContent = 'Recharger';
+    reloadButton.onclick = reloadMovies;
+    document.querySelector('.controls').appendChild(reloadButton);
 
     if (toggleSwitch) {
         toggleSwitch.addEventListener('change', () => {
